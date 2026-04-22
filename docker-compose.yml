@@ -1,0 +1,15 @@
+services:
+  spotify:
+    build: .
+    image: spotify-automation
+    stdin_open: true   # keeps stdin open for interactive prompts
+    tty: true          # allocates a pseudo-TTY for read -p / -t
+    env_file:
+      - .env
+    ports:
+      - "${SPOTIFY_REDIRECT_PORT:-8765}:${SPOTIFY_REDIRECT_PORT:-8765}"  # OAuth callback
+    volumes:
+      - token-cache:/app/.cache  # persists the OAuth token between runs
+
+volumes:
+  token-cache:
