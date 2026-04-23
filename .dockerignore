@@ -1,2 +1,4 @@
+.env
 .spotify_token_cache
+spotify-token-cache/
 .git

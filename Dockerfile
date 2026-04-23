@@ -11,14 +11,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Copy scripts
+# Copy scripts (credentials come in via env_file at runtime, not baked in)
 COPY login.sh get_playlist.sh play_playlist.sh ./
-COPY .env .env
 RUN chmod +x login.sh get_playlist.sh play_playlist.sh
 
-# Token cache lives in a named volume mounted at /app/.cache
+# Token cache directory — persisted via a named volume or bind mount at runtime
 ENV TOKEN_CACHE_DIR=/app/.cache
 RUN mkdir -p /app/.cache
+
 EXPOSE 8765
+
 ENTRYPOINT ["bash"]
 CMD ["play_playlist.sh"]
