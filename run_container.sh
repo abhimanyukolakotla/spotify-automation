@@ -1,0 +1,1 @@
+podman run -v "$(pwd)/spotify-token-cache:/app/.cache" -v "$(pwd)/.env:/app/.env" -it -p 8765:8765 spotify
